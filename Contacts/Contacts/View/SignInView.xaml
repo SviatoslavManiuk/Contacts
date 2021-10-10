@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Contacts.View.SignInView"
+    Title="Users SignIn">
+
+    <Grid RowDefinitions="0.7*, 0.3*" Padding="40">
+
+        <StackLayout Grid.Row="0" VerticalOptions="Center" Spacing="20">
+            <Entry Placeholder="Login"/>
+            <Entry Placeholder="Password" IsPassword="True"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="1"
+                     VerticalOptions="Center"
+                     Spacing="15">
+
+            <Button Text="Sign In"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#eb6747"
+                    FontSize="Large"
+                    BorderWidth="1"
+                    BorderColor="Black"
+                    IsEnabled="True"/>
+
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="SIGN UP"
+                              FontSize="Large"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding}"
+                                                      CommandParameter="" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+         
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

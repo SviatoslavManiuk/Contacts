@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Contacts.View;
+using Prism.Ioc;
+using Prism.Unity;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Contacts
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
         public App()
         {
+        }
+
+        #region --- Overrides ---
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<SignInView>();
+        }
+
+        protected override async void OnInitialized()
+        {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            await NavigationService.NavigateAsync("NavigationPage/" + nameof(SignInView));
         }
 
         protected override void OnStart()
@@ -24,5 +37,7 @@ namespace Contacts
         protected override void OnResume()
         {
         }
+
+        #endregion
     }
 }
