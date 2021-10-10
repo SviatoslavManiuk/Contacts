@@ -17,6 +17,7 @@ namespace Contacts
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignInView>();
+            containerRegistry.RegisterForNavigation<SignUpView>();
         }
 
         protected override async void OnInitialized()

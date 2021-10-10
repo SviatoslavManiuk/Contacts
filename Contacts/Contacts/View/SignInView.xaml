@@ -21,8 +21,7 @@
                     BackgroundColor="#eb6747"
                     FontSize="Large"
                     BorderWidth="1"
-                    BorderColor="Black"
-                    IsEnabled="True"/>
+                    BorderColor="Black"/>
 
             <Label HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand">
