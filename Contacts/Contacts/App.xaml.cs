@@ -19,13 +19,14 @@ namespace Contacts
             containerRegistry.RegisterForNavigation<SignInView>();
             containerRegistry.RegisterForNavigation<SignUpView>();
             containerRegistry.RegisterForNavigation<MainListView>();
+            containerRegistry.RegisterForNavigation<AddEditProfileView>();
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainListView));
+            await NavigationService.NavigateAsync("NavigationPage/" + nameof(AddEditProfileView));
         }
 
         protected override void OnStart()
