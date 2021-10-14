@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Contacts.View.SignUpView"
+    x:Class="Contacts.View.SignUp"
     Title="Users SignUp">
 
     <Grid RowDefinitions="0.7*, 0.3*" Padding="40">

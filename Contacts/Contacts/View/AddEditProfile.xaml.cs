@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Contacts.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddEditProfileView : ContentPage
+    public partial class AddEditProfile : ContentPage
     {
-        public AddEditProfileView()
+        public AddEditProfile()
         {
             InitializeComponent();
         }

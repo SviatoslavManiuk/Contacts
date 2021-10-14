@@ -49,11 +49,11 @@ namespace Contacts.ViewModel
 
         private async void OnSignInButtonTap()
         {
-            await _navigationService.NavigateAsync("/"+nameof(MainListView));
+            await _navigationService.NavigateAsync("/"+nameof(MainList));
         }
         private async void OnSignUpLabelTap()
         {
-            await _navigationService.NavigateAsync(nameof(SignUpView));
+            await _navigationService.NavigateAsync(nameof(SignUp));
         }
 
         private bool AllFieldsNotEmpty()

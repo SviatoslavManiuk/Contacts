@@ -20,17 +20,17 @@ namespace Contacts
             
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<SignInView, SignInViewModel>();
-            containerRegistry.RegisterForNavigation<SignUpView>();
-            containerRegistry.RegisterForNavigation<MainListView>();
-            containerRegistry.RegisterForNavigation<AddEditProfileView>();
+            containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
+            containerRegistry.RegisterForNavigation<SignUp>();
+            containerRegistry.RegisterForNavigation<MainList>();
+            containerRegistry.RegisterForNavigation<AddEditProfile>();
         }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/" + nameof(SignInView));
+            await NavigationService.NavigateAsync("NavigationPage/" + nameof(SignIn));
         }
 
         protected override void OnStart()

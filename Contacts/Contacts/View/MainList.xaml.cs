@@ -14,12 +14,12 @@ namespace Contacts.View
         public DateTime Date { get; set; }
     }
 
-    public partial class MainListView : ContentPage
+    public partial class MainList : ContentPage
     {
         //Temporary
         public List<Profile> Profiles { get; set; }
 
-        public MainListView()
+        public MainList()
         {
             InitializeComponent();
 
