@@ -8,8 +8,8 @@
     <Grid RowDefinitions="0.7*, 0.3*" Padding="40">
 
         <StackLayout Grid.Row="0" VerticalOptions="Center" Spacing="20">
-            <Entry Placeholder="Login"/>
-            <Entry Placeholder="Password" IsPassword="True"/>
+            <Entry Placeholder="Login" Text="{Binding Login}"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
         </StackLayout>
 
         <StackLayout Grid.Row="1"
