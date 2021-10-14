@@ -21,7 +21,8 @@
                     BackgroundColor="#eb6747"
                     FontSize="Large"
                     BorderWidth="1"
-                    BorderColor="Black"/>
+                    BorderColor="Black"
+                    Command="{Binding SignInButtonTapCommand}"/>
 
             <Label HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand">
@@ -32,8 +33,7 @@
                               TextColor="Blue"
                               TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding}"
-                                                      CommandParameter="" />
+                                <TapGestureRecognizer Command="{Binding SignUpLabelTapCommand}"/>
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>
