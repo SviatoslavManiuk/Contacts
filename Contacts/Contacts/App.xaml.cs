@@ -1,4 +1,5 @@
-﻿using Contacts.View;
+﻿using Contacts.Services.Settings;
+using Contacts.View;
 using Contacts.ViewModel;
 using Prism.Ioc;
 using Prism.Unity;
@@ -17,11 +18,12 @@ namespace Contacts
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
-            containerRegistry.RegisterForNavigation<SignUp>();
+            containerRegistry.RegisterForNavigation<SignUp, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<MainList>();
             containerRegistry.RegisterForNavigation<AddEditProfile>();
         }
@@ -30,7 +32,15 @@ namespace Contacts
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/" + nameof(SignIn));
+            var settingsManager = new SettingsManager();
+            if (settingsManager.IsAuthorized)
+            {
+                await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainList));
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("NavigationPage/" + nameof(SignIn));
+            }
         }
 
         protected override void OnStart()
