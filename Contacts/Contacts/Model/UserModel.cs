@@ -2,7 +2,7 @@ using SQLite;
 
 namespace Contacts.Model
 {
-    public class UserModel
+    public class UserModel: IEntityBase
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
