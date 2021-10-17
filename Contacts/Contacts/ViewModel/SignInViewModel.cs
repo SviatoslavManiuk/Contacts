@@ -18,12 +18,12 @@ namespace Contacts.ViewModel
         private string _password;
 
         private INavigationService _navigationService;
-        private IAuthenticationService _authenticationServiceService;
+        private IAuthenticationService _authenticationService;
         
-        public SignInViewModel(INavigationService navigationService, ISettingsManager settingsManager, IAuthenticationService authenticationServiceService)
+        public SignInViewModel(INavigationService navigationService, ISettingsManager settingsManager, IAuthenticationService authenticationService)
         {
             _navigationService = navigationService;
-            _authenticationServiceService = authenticationServiceService;
+            _authenticationService = authenticationService;
         }
         
         #region --- Public Properties ---
@@ -73,7 +73,7 @@ namespace Contacts.ViewModel
 
         private async void OnSignInButtonTap()
         {
-            UserModel user = await _authenticationServiceService.SignInAsync(Login, Password);
+            UserModel user = await _authenticationService.SignInAsync(Login, Password);
             if (user != null)
             {
                 var parameters = new NavigationParameters();

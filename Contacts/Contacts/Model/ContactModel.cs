@@ -12,7 +12,7 @@ namespace Contacts.Model
         
         public string NickName { get; set; }
         
-        public string Nick { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
         
