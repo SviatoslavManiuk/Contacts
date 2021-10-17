@@ -1,4 +1,5 @@
-﻿using Contacts.Services.Settings;
+﻿using Contacts.Services.Repository;
+using Contacts.Services.Settings;
 using Contacts.View;
 using Contacts.ViewModel;
 using Prism.Ioc;
@@ -19,6 +20,7 @@ namespace Contacts
         {
             //Services
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
