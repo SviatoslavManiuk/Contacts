@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using Contacts.Services.Authentication;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -15,10 +16,12 @@ namespace Contacts.ViewModel
         private string _confirmPassword;
 
         private INavigationService _navigationService;
+        private IAuthenticationService _authenticationServiceService;
         
-        public SignUpViewModel(INavigationService navigationService)
+        public SignUpViewModel(INavigationService navigationService, IAuthenticationService authenticationServiceService)
         {
             _navigationService = navigationService;
+            _authenticationServiceService = authenticationServiceService;
         }
         
         #region --- Public Properties ---
@@ -76,6 +79,14 @@ namespace Contacts.ViewModel
         {
             if (IsValid())
             {
+                bool signedUp = await _authenticationServiceService.SignUpAsync(Login, Password);
+                if (!signedUp)
+                {
+                    UserDialogs.Instance.Alert("This login is already taken!");
+                    return;
+                }
+
+                Password = "";
                 await _navigationService.GoBackAsync();
             }
         }

@@ -1,8 +1,12 @@
-﻿using Contacts.Services.Repository;
+﻿using Contacts.DAL;
+using Contacts.Model;
+using Contacts.Services.Authentication;
+using Contacts.Services.Repository;
 using Contacts.Services.Settings;
 using Contacts.View;
 using Contacts.ViewModel;
 using Prism.Ioc;
+using Prism.Navigation;
 using Prism.Unity;
 using Xamarin.Forms;
 
@@ -21,7 +25,8 @@ namespace Contacts
             //Services
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
-            
+            containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationWithLogin>());
+
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
@@ -35,9 +40,14 @@ namespace Contacts
             InitializeComponent();
 
             var settingsManager = new SettingsManager();
-            if (settingsManager.IsAuthorized)
+            int userId = settingsManager.UserId;
+            if (userId != -1)
             {
-                await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainList));
+                var userDao = new UserDAO(new Repository());
+                UserModel user = await userDao.FindByIDAsync(userId);
+                var parameter = new NavigationParameters();
+                parameter.Add(nameof(UserModel), user);
+                await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainList), parameter);
             }
             else
             {

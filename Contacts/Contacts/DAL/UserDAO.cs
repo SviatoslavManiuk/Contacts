@@ -19,9 +19,13 @@ namespace Contacts.DAL
             return await _repository.InsertAsync(user);
         }
 
-        public async Task<UserModel> FindByLoginAsync(UserModel user)
+        public async Task<UserModel> FindByLoginAsync(string login)
         {
-            return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Login = ?", user.Login);
+            return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Login = ?", login);
+        }
+        public async Task<UserModel> FindByIDAsync(int id)
+        {
+            return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Id = ?", id);
         }
 
         /*public async Task<int> DeleteAsync(UserModel user)

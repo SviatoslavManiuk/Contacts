@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using Contacts.Model;
+using Contacts.Services.Authentication;
 using Contacts.Services.Settings;
 using Contacts.View;
 using Prism.Commands;
@@ -16,12 +18,12 @@ namespace Contacts.ViewModel
         private string _password;
 
         private INavigationService _navigationService;
-        private ISettingsManager _settingsManager;
+        private IAuthenticationService _authenticationServiceService;
         
-        public SignInViewModel(INavigationService navigationService, ISettingsManager settingsManager)
+        public SignInViewModel(INavigationService navigationService, ISettingsManager settingsManager, IAuthenticationService authenticationServiceService)
         {
             _navigationService = navigationService;
-            _settingsManager = settingsManager;
+            _authenticationServiceService = authenticationServiceService;
         }
         
         #region --- Public Properties ---
@@ -71,10 +73,12 @@ namespace Contacts.ViewModel
 
         private async void OnSignInButtonTap()
         {
-            if (true)
+            UserModel user = await _authenticationServiceService.SignInAsync(Login, Password);
+            if (user != null)
             {
-                //_settingsManager.IsAuthorized = true;
-                await _navigationService.NavigateAsync("/NavigationPage/"+nameof(MainList));
+                var parameters = new NavigationParameters();
+                parameters.Add(nameof(UserModel), user);
+                await _navigationService.NavigateAsync("/NavigationPage/"+nameof(MainList), parameters);
             }
             else
             {
