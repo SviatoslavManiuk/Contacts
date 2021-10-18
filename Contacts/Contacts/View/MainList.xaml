@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Class="Contacts.View.MainList"
+    Title="Main List">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="log_out_icon.png"
+                     Order="Primary"
+                     Priority="0">
+        </ToolbarItem>
+        <ToolbarItem IconImageSource="settings_icon.png"
+                     Order="Primary"
+                     Priority="1"/>
+    </ContentPage.ToolbarItems>
+    
+        <StackLayout VerticalOptions="Center">
+        <Label Text="No profiles added"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontSize="Large">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="IsVisible" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Label">
+                            <DataTrigger.Value>
+                                <sys:Boolean>True</sys:Boolean>
+                            </DataTrigger.Value>
+                            <DataTrigger.Setters>
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Grid RowDefinitions="*">
+            <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="IsVisible" Value="True"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Grid">
+                        <DataTrigger.Value>
+                            <sys:Boolean>True</sys:Boolean>
+                        </DataTrigger.Value>
+                        <DataTrigger.Setters>
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            </Grid.Style>
+            <ScrollView Grid.Row="0">
+            <ListView HasUnevenRows="True"
+                      ItemsSource="{Binding }"
+                      SeparatorVisibility="None">
+             <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Edit"
+                                Command="{Binding}"/>
+                            <MenuItem Text="Delete"
+                                Command="{Binding}"/>
+                        </ViewCell.ContextActions>
+
+                        <ViewCell.View>
+                            <Grid ColumnDefinitions="0.35*, 0.65*">
+                                <Image Grid.Column="0"
+                                       Margin="10"
+                                       HeightRequest="100"
+                                       Aspect="AspectFit"
+                                       Source="{Binding }">
+                                </Image>
+
+                                <StackLayout Grid.Column="1"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding }" FontSize="Medium" FontAttributes="Bold" />
+                                    <Label Text="{Binding }" FontSize="Medium"/>
+                                    <Label Text="{Binding StringFormat='{}{0:dd/mm/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+
+        <ImageButton Grid.Row="0"
+                Source="icon.png"
+                CornerRadius="50"
+                BorderColor="#1a6f16"
+                BorderWidth="10"
+                BackgroundColor="#3da8ff"
+                Margin="0,0,30,40" 
+                HorizontalOptions="End" VerticalOptions="End"
+                WidthRequest="100" HeightRequest="100"/>
+    </Grid>
+        </StackLayout>
+</ContentPage>

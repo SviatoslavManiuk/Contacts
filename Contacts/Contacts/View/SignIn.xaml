@@ -2,14 +2,14 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Contacts.View.SignInView"
+    x:Class="Contacts.View.SignIn"
     Title="Users SignIn">
 
     <Grid RowDefinitions="0.7*, 0.3*" Padding="40">
 
         <StackLayout Grid.Row="0" VerticalOptions="Center" Spacing="20">
-            <Entry Placeholder="Login"/>
-            <Entry Placeholder="Password" IsPassword="True"/>
+            <Entry Placeholder="Login" Text="{Binding Login}"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
         </StackLayout>
 
         <StackLayout Grid.Row="1"
@@ -21,7 +21,8 @@
                     BackgroundColor="#eb6747"
                     FontSize="Large"
                     BorderWidth="1"
-                    BorderColor="Black"/>
+                    BorderColor="Black"
+                    Command="{Binding SignInButtonTapCommand}"/>
 
             <Label HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand">
@@ -32,8 +33,7 @@
                               TextColor="Blue"
                               TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding}"
-                                                      CommandParameter="" />
+                                <TapGestureRecognizer Command="{Binding SignUpLabelTapCommand}"/>
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

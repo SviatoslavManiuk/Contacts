@@ -2,15 +2,15 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Contacts.View.SignUpView"
+    x:Class="Contacts.View.SignUp"
     Title="Users SignUp">
 
     <Grid RowDefinitions="0.7*, 0.3*" Padding="40">
 
         <StackLayout Grid.Row="0" VerticalOptions="Center" Spacing="20">
-            <Entry Placeholder="Login"/>
-            <Entry Placeholder="Password" IsPassword="True"/>
-            <Entry Placeholder="Confirm Password" IsPassword="True"/>
+            <Entry Placeholder="Login" Text="{Binding Login}"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+            <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
         </StackLayout>
 
 
@@ -21,7 +21,8 @@
                 BackgroundColor="#eb6747"
                 FontSize="Large"
                 BorderWidth="1"
-                BorderColor="Black"/>
+                BorderColor="Black"
+                Command="{Binding SignUpButtonTapCommand}"/>
 
     </Grid>
 </ContentPage>

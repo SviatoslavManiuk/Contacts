@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace Contacts.View
 {
-    public partial class SignInView : ContentPage
+    public partial class SignIn : ContentPage
     {
-        public SignInView()
+        public SignIn()
         {
             InitializeComponent();
         }

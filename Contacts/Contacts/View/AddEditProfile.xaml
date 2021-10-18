@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contacts.View.AddEditProfile"
+             Title="Add Profile">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="save_icon.png"
+                     Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="0.3*, 0.3*, 0.3*" Padding="40, 15, 40, 40">
+            <Image Grid.Row="0"
+                   Source="avatar_icon.png"
+                   Aspect="AspectFit"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+            </Image>
+            
+            <StackLayout Grid.Row="1"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Fill"
+                         Spacing="20">
+                <Entry Placeholder="NickName"/>
+                <Entry Placeholder="Name"/>
+            </StackLayout>
+            
+            <Editor Grid.Row="2" 
+                    Placeholder="Descriptions"
+                    BackgroundColor="Silver"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
