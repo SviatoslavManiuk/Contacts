@@ -5,11 +5,11 @@ using Contacts.Services.Repository;
 
 namespace Contacts.DAL
 {
-    public class UserDAO
+    public class UserService
     {
         private IRepository _repository;
 
-        public UserDAO(IRepository repository)
+        public UserService(IRepository repository)
         {
             _repository = repository;
         }

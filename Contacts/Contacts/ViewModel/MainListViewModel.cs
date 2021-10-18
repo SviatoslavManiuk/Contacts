@@ -18,13 +18,13 @@ namespace Contacts.ViewModel
 {
     public class MainListViewModel: BindableBase, IInitialize
     {
-        private ContactDAO _contactDao;
+        private ContactService _contactService;
         private ISettingsManager _settingsManager;
         private INavigationService _navigationService;
 
-        public MainListViewModel(ContactDAO contactDao, ISettingsManager settingsManager, INavigationService navigationService)
+        public MainListViewModel(ContactService contactService, ISettingsManager settingsManager, INavigationService navigationService)
         {
-            _contactDao = contactDao;
+            _contactService = contactService;
             _settingsManager = settingsManager;
             _navigationService = navigationService;
             Contacts = new ObservableCollection<ContactViewModel>();
@@ -57,7 +57,7 @@ namespace Contacts.ViewModel
         {
             int userId = (int) parameters["userId"];
             
-            var _contactList = await _contactDao.GetContactsByUserAsync(userId);
+            var _contactList = await _contactService.GetContactsByUserAsync(userId);
             Contacts = new ObservableCollection<ContactViewModel>(_contactList.Select(x => x.ToContactViewModel()));
             
             var deleteCommand = new Command(OnDeleteCommand);

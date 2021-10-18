@@ -7,18 +7,18 @@ namespace Contacts.Services.Authentication
 {
     public class AuthenticationWithLogin : IAuthenticationService
     {
-        private UserDAO _userDao;
+        private UserService _userService;
         private ISettingsManager _settingsManager;
 
-        public AuthenticationWithLogin(UserDAO userDao, ISettingsManager settingsManager)
+        public AuthenticationWithLogin(UserService userService, ISettingsManager settingsManager)
         {
-            _userDao = userDao;
+            _userService = userService;
             _settingsManager = settingsManager;
         }
         
         public async Task<UserModel> SignInAsync(string login, string password)
         {
-            UserModel user = await _userDao.FindByLoginAsync(login);
+            UserModel user = await _userService.FindByLoginAsync(login);
             if (user == null || user.Password != password)
                 return null;
 
@@ -28,11 +28,11 @@ namespace Contacts.Services.Authentication
 
         public async Task<bool> SignUpAsync(string login, string password)
         {
-            UserModel res = await _userDao.FindByLoginAsync(login);
+            UserModel res = await _userService.FindByLoginAsync(login);
             if (res == null)
             {
                 UserModel user = new UserModel() {Login = login, Password = password};
-                await _userDao.InsertAsync(user);
+                await _userService.InsertAsync(user);
                 return true;
             }
             
