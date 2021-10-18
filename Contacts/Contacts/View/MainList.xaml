@@ -9,14 +9,15 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="log_out_icon.png"
                      Order="Primary"
-                     Priority="0">
+                     Priority="0"
+                     Command="{Binding LogOutButtonTapCommand}">
         </ToolbarItem>
         <ToolbarItem IconImageSource="settings_icon.png"
                      Order="Primary"
                      Priority="1"/>
     </ContentPage.ToolbarItems>
     
-        <StackLayout VerticalOptions="Center">
+        <StackLayout VerticalOptions="CenterAndExpand">
         <Label Text="No profiles added"
                HorizontalOptions="Center"
                VerticalOptions="Center"
@@ -37,26 +38,12 @@
                 </Style>
             </Label.Style>
         </Label>
+            
         <Grid RowDefinitions="*">
-            <Grid.Style>
-            <Style TargetType="Grid">
-                <Setter Property="IsVisible" Value="True"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Grid">
-                        <DataTrigger.Value>
-                            <sys:Boolean>True</sys:Boolean>
-                        </DataTrigger.Value>
-                        <DataTrigger.Setters>
-                            <Setter Property="IsVisible" Value="False"/>
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            </Grid.Style>
             <ScrollView Grid.Row="0">
-            <ListView HasUnevenRows="True"
-                      ItemsSource="{Binding }"
-                      SeparatorVisibility="None">
+                <ListView HasUnevenRows="True"
+                          ItemsSource="{Binding Contacts }"
+                          SeparatorVisibility="None">
              <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -73,14 +60,14 @@
                                        Margin="10"
                                        HeightRequest="100"
                                        Aspect="AspectFit"
-                                       Source="{Binding }">
+                                       Source="{Binding ImageSource}">
                                 </Image>
 
                                 <StackLayout Grid.Column="1"
                                              VerticalOptions="Center">
-                                    <Label Text="{Binding }" FontSize="Medium" FontAttributes="Bold" />
-                                    <Label Text="{Binding }" FontSize="Medium"/>
-                                    <Label Text="{Binding StringFormat='{}{0:dd/mm/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
+                                    <Label Text="{Binding NickName}" FontSize="Medium" FontAttributes="Bold" />
+                                    <Label Text="{Binding Name}" FontSize="Medium"/>
+                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/mm/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell.View>

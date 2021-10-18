@@ -77,8 +77,8 @@ namespace Contacts.ViewModel
             if (user != null)
             {
                 var parameters = new NavigationParameters();
-                parameters.Add(nameof(UserModel), user);
-                await _navigationService.NavigateAsync("/NavigationPage/"+nameof(MainList), parameters);
+                parameters.Add("userId", user.Id);
+                await _navigationService.NavigateAsync("/NavigationPage/" + nameof(MainList), parameters);
             }
             else
             {

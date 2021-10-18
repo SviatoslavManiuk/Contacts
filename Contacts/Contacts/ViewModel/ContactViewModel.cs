@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Input;
 using Contacts.Model;
 using Prism.Mvvm;
 
@@ -7,6 +8,21 @@ namespace Contacts.ViewModel
     public class ContactViewModel: BindableBase
     {
         #region --- Public Properties ---
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get => _deleteCommand;
+            set => SetProperty(ref _deleteCommand, value);
+        }
+        
+        private ICommand _editCommand;
+        public ICommand EditCommand
+        {
+            get => _editCommand;
+            set => SetProperty(ref _editCommand, value);
+        }
+        
         
         private string _nickName;
         public string NickName
@@ -47,12 +63,6 @@ namespace Contacts.ViewModel
     
     public static class ContactExtension
     {
-        /*public static ContactModel ToContactModel(this ContactViewModel contact) => new()
-        {
-            Name = contact.Name,
-            NickName = contact.NickName,
-        };*/
-
         public static ContactViewModel ToContactViewModel(this ContactModel contact) => new()
         {
             Name = contact.Name,
