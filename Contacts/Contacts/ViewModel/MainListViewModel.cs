@@ -16,7 +16,7 @@ using Xamarin.Forms;
 
 namespace Contacts.ViewModel
 {
-    public class MainListViewModel: BindableBase, IInitializeAsync
+    public class MainListViewModel: BindableBase, IInitialize
     {
         private ContactDAO _contactDao;
         private ISettingsManager _settingsManager;
@@ -53,12 +53,12 @@ namespace Contacts.ViewModel
 
         #region --- Public Methods ---
 
-        public async Task InitializeAsync(INavigationParameters parameters)
+        public async void Initialize(INavigationParameters parameters)
         {
             int userId = (int) parameters["userId"];
-
-            //var _contactList = await _contactDao.GetContactsByUserAsync();
-            //Contacts = new ObservableCollection<ContactViewModel>(_contactList.Select(x => x.ToContactViewModel()));
+            
+            var _contactList = await _contactDao.GetContactsByUserAsync(userId);
+            Contacts = new ObservableCollection<ContactViewModel>(_contactList.Select(x => x.ToContactViewModel()));
             
             var deleteCommand = new Command(OnDeleteCommand);
             var editCommand = new Command(OnEditCommand);

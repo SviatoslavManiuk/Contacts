@@ -3,6 +3,7 @@ using SQLite;
 
 namespace Contacts.Model
 {
+    [Table("Contact")]
     public class ContactModel : IEntityBase
     {
         [PrimaryKey, AutoIncrement]

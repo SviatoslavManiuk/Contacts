@@ -29,9 +29,9 @@ namespace Contacts.DAL
             return await _repository.UpdateAsync(contact);
         }
 
-        public async Task<List<ContactModel>> GetContactsByUserAsync()
+        public async Task<List<ContactModel>> GetContactsByUserAsync(int userId)
         {
-            return await _repository.GetAllAsync<ContactModel>();
+            return await _repository.GetTable<ContactModel>().Where(contact => contact.Id == userId).ToListAsync();
         }
     }
 }

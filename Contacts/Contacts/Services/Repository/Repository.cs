@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Contacts.DAL;
 using Contacts.Model;
 using SQLite;
 
@@ -13,42 +15,41 @@ namespace Contacts.Services.Repository
 
         public Repository()
         {
-            _database = new Lazy<SQLiteAsyncConnection>(() =>
+            _database = new Lazy<SQLiteAsyncConnection>(()=>
             {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     "contacts.db3");
-                
                 var database = new SQLiteAsyncConnection(path);
-                database.CreateTableAsync<UserModel>();
-                database.CreateTableAsync<ContactModel>();
 
+                database.CreateTableAsync<UserModel>().Wait();
+                database.CreateTableAsync<ContactModel>().Wait();
                 return database;
             });
         }
 
-        public Task<int> InsertAsync<T>(T entity) where T : IEntityBase, new()
+        public async Task<int> InsertAsync<T>(T entity) where T : IEntityBase, new()
         {
-            return _database.Value.InsertAsync(entity);
+            return await _database.Value.InsertAsync(entity);
         }
 
-        public Task<int> UpdateAsync<T>(T entity) where T : IEntityBase, new()
+        public async Task<int> UpdateAsync<T>(T entity) where T : IEntityBase, new()
         {
-            return _database.Value.UpdateAsync(entity);
+            return await _database.Value.UpdateAsync(entity);
         }
 
-        public Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
+        public async Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
         {
-            return _database.Value.DeleteAsync(entity);
+            return await _database.Value.DeleteAsync(entity);
         }
 
-        public Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
+        public AsyncTableQuery<T> GetTable<T>() where T : IEntityBase, new()
         {
-            return _database.Value.Table<T>().ToListAsync();
+            return _database.Value.Table<T>();
         }
         
-        public Task<T> FindWithQueryAsync<T>(string query, params object[] args) where T : IEntityBase, new()
+        public async Task<T> FindWithQueryAsync<T>(string query, params object[] args) where T : IEntityBase, new()
         {
-            return _database.Value.FindWithQueryAsync<T>(query, args);
+            return await _database.Value.FindWithQueryAsync<T>(query, args);
         }
     }
 }

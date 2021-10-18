@@ -26,6 +26,9 @@ namespace Contacts
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationWithLogin>());
+            containerRegistry.RegisterInstance<UserDAO>(Container.Resolve<UserDAO>());
+            containerRegistry.RegisterInstance<ContactDAO>(Container.Resolve<ContactDAO>());
+            
 
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
