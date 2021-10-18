@@ -31,7 +31,7 @@ namespace Contacts
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUp, SignUpViewModel>();
-            containerRegistry.RegisterForNavigation<MainList>();
+            containerRegistry.RegisterForNavigation<MainList, MainListViewModel>();
             containerRegistry.RegisterForNavigation<AddEditProfile>();
         }
 
@@ -43,10 +43,8 @@ namespace Contacts
             int userId = settingsManager.UserId;
             if (userId != -1)
             {
-                var userDao = new UserDAO(new Repository());
-                UserModel user = await userDao.FindByIDAsync(userId);
                 var parameter = new NavigationParameters();
-                parameter.Add(nameof(UserModel), user);
+                parameter.Add("userId", userId);
                 await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainList), parameter);
             }
             else

@@ -41,9 +41,9 @@ namespace Contacts.Services.Repository
             return _database.Value.DeleteAsync(entity);
         }
 
-        public AsyncTableQuery<T> GetTableAsync<T>() where T : IEntityBase, new()
+        public Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
         {
-            return _database.Value.Table<T>();
+            return _database.Value.Table<T>().ToListAsync();
         }
         
         public Task<T> FindWithQueryAsync<T>(string query, params object[] args) where T : IEntityBase, new()

@@ -14,7 +14,7 @@ namespace Contacts.Services.Repository
         
         Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new();
 
-        AsyncTableQuery<T> GetTableAsync<T>() where T : IEntityBase, new();
+        Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new();
 
         Task<T> FindWithQueryAsync<T>(string query, params object[] args) where T : IEntityBase, new ();
     }

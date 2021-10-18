@@ -27,20 +27,6 @@ namespace Contacts.DAL
         {
             return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Id = ?", id);
         }
-
-        /*public async Task<int> DeleteAsync(UserModel user)
-        {
-            return await _repository.DeleteAsync(user);
-        }
-
-        public async Task<int> UpdateAsync(UserModel user)
-        {
-            return await _repository.UpdateAsync(user);
-        }
-
-        public async Task<List<UserModel>> GetAllAsync()
-        {
-            return await _repository.GetTableAsync<UserModel>().ToListAsync();
-        }*/
+        
     }
 }
