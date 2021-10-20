@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace Contacts.ViewModel
 {
-    public class SignInViewModel: BindableBase
+    public class SignInViewModel: BindableBase, INavigationAware
     {
         private string _login;
         private string _password;
@@ -53,6 +53,29 @@ namespace Contacts.ViewModel
 
         #endregion
 
+        #region --- Public Methods ---
+        
+        public void OnNavigatedFrom(INavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var login = parameters["Login"];
+            if (login != null)
+            {
+                Login = (string) login;
+            }
+            else
+            {
+                Login = "";
+            }
+
+            Password = "";
+        }
+
+        #endregion
+
         #region --- Overrides ---
         
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -83,6 +106,7 @@ namespace Contacts.ViewModel
             else
             {
                 UserDialogs.Instance.Alert("Invalid login or password!");
+                Password = "";
             }
         }
         private async void OnSignUpLabelTap()
@@ -91,5 +115,6 @@ namespace Contacts.ViewModel
         }
 
         #endregion
+        
     }
 }

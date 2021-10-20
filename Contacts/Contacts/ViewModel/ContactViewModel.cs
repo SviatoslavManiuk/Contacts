@@ -7,6 +7,16 @@ namespace Contacts.ViewModel
 {
     public class ContactViewModel: BindableBase
     {
+        public ContactViewModel(int id, string name, string nickName, string description, string profileImageSource,
+            DateTime date)
+        {
+            Id = id;
+            Name = name;
+            NickName = nickName;
+            Description = description;
+            ProfileImageSource = profileImageSource;
+            Date = date;
+        }
         #region --- Public Properties ---
 
         private ICommand _deleteCommand;
@@ -23,7 +33,8 @@ namespace Contacts.ViewModel
             set => SetProperty(ref _editCommand, value);
         }
         
-        
+        public int Id { get; }
+
         private string _nickName;
         public string NickName
         {
@@ -38,11 +49,11 @@ namespace Contacts.ViewModel
             set => SetProperty(ref _name, value);
         }
         
-        private string _imageSource;
-        public string ImageSource
+        private string _profileImageSource;
+        public string ProfileImageSource
         {
-            get => _imageSource;
-            set => SetProperty(ref _imageSource, value);
+            get => _profileImageSource;
+            set => SetProperty(ref _profileImageSource, value);
         }
         
         private DateTime _date;
@@ -63,13 +74,20 @@ namespace Contacts.ViewModel
     
     public static class ContactExtension
     {
-        public static ContactViewModel ToContactViewModel(this ContactModel contact) => new()
+        public static ContactViewModel ToContactViewModel(this ContactModel contact)
         {
-            Name = contact.Name,
-            NickName = contact.NickName,
-            ImageSource = contact.ImageSource,
-            Date = contact.Date,
-            Description = contact.Description
+            return new ContactViewModel(contact.Id, contact.Name, contact.NickName,
+                    contact.Description, contact.ImageSource, contact.Date);
+        }
+
+        public static ContactModel ToContactModel(this ContactViewModel contactViewModel) => new()
+        {
+            Id = contactViewModel.Id,
+            Name = contactViewModel.Name,
+            NickName = contactViewModel.NickName,
+            ImageSource = contactViewModel.ProfileImageSource,
+            Date = contactViewModel.Date,
+            Description = contactViewModel.Description
         };
     }
 }

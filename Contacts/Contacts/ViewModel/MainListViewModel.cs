@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Contacts.DAL;
 using Contacts.Model;
-using Contacts.Services.Repository;
 using Contacts.Services.Settings;
 using Contacts.View;
 using Prism.Mvvm;
@@ -33,9 +29,11 @@ namespace Contacts.ViewModel
         
         #region --- Public Properties ---
 
-        public ICommand LogOutButtonTapCommand => new Command(OnLogOutButtonTap);
+        public ICommand LogOutIconTapCommand => new Command(OnLogOutIconTap);
+        
+        public ICommand AddButtonTapCommand => new Command(OnAddButtonTap);
 
-        public ObservableCollection<ContactViewModel> _contacts;
+        private ObservableCollection<ContactViewModel> _contacts;
         public ObservableCollection<ContactViewModel> Contacts
         {
             get => _contacts;
@@ -48,6 +46,8 @@ namespace Contacts.ViewModel
             get => _isContactsEmpty;
             set => SetProperty(ref _isContactsEmpty, value);
         }
+        
+        public int UserId { get; private set; }
 
         #endregion
 
@@ -55,10 +55,10 @@ namespace Contacts.ViewModel
 
         public async void Initialize(INavigationParameters parameters)
         {
-            int userId = (int) parameters["userId"];
+            UserId = (int) parameters["userId"];
             
-            var _contactList = await _contactService.GetContactsByUserAsync(userId);
-            Contacts = new ObservableCollection<ContactViewModel>(_contactList.Select(x => x.ToContactViewModel()));
+            var contactList = await _contactService.GetContactsByUserAsync(UserId);
+            Contacts = new ObservableCollection<ContactViewModel>(contactList.Select(x => x.ToContactViewModel()));
             
             var deleteCommand = new Command(OnDeleteCommand);
             var editCommand = new Command(OnEditCommand);
@@ -81,14 +81,14 @@ namespace Contacts.ViewModel
             switch (args.PropertyName)
             {
                 case nameof(Contacts):
-                    IsContactsEmpty =true;
+                    IsContactsEmpty = (Contacts.Count == 0);
                     break;
             }
         }
         #endregion
 
         #region --- Private Helpers ---
-
+        
         private void OnDeleteCommand()
         {
             
@@ -99,11 +99,19 @@ namespace Contacts.ViewModel
             
         }
         
-        private async void OnLogOutButtonTap()
+        private async void OnLogOutIconTap()
         {
             _settingsManager.UserId = -1;
             await _navigationService.NavigateAsync("/NavigationPage/" + nameof(SignIn));
         }
+
+        private async void OnAddButtonTap()
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add(nameof(ContactModel), new ContactModel(){Id = -1, UserId = this.UserId});
+            await _navigationService.NavigateAsync(nameof(AddEditProfile), parameters);
+        }
+        
 
         #endregion
     }

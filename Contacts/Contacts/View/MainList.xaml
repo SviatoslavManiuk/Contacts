@@ -10,7 +10,7 @@
         <ToolbarItem IconImageSource="log_out_icon.png"
                      Order="Primary"
                      Priority="0"
-                     Command="{Binding LogOutButtonTapCommand}">
+                     Command="{Binding LogOutIconTapCommand}">
         </ToolbarItem>
         <ToolbarItem IconImageSource="settings_icon.png"
                      Order="Primary"
@@ -60,7 +60,7 @@
                                        Margin="10"
                                        HeightRequest="100"
                                        Aspect="AspectFit"
-                                       Source="{Binding ImageSource}">
+                                       Source="{Binding ProfileImageSource}">
                                 </Image>
 
                                 <StackLayout Grid.Column="1"
@@ -85,7 +85,8 @@
                 BackgroundColor="#3da8ff"
                 Margin="0,0,30,40" 
                 HorizontalOptions="End" VerticalOptions="End"
-                WidthRequest="100" HeightRequest="100"/>
+                WidthRequest="100" HeightRequest="100"
+                Command="{Binding AddButtonTapCommand}"/>
     </Grid>
         </StackLayout>
 </ContentPage>

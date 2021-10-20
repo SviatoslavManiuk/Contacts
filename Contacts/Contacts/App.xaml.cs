@@ -35,7 +35,7 @@ namespace Contacts
             containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUp, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<MainList, MainListViewModel>();
-            containerRegistry.RegisterForNavigation<AddEditProfile>();
+            containerRegistry.RegisterForNavigation<AddEditProfile, AddEditProfileViewModel>();
         }
 
         protected override async void OnInitialized()

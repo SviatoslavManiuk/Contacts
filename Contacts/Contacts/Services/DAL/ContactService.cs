@@ -31,7 +31,7 @@ namespace Contacts.DAL
 
         public async Task<List<ContactModel>> GetContactsByUserAsync(int userId)
         {
-            return await _repository.GetTable<ContactModel>().Where(contact => contact.Id == userId).ToListAsync();
+            return await _repository.GetTable<ContactModel>().Where(contact => contact.UserId == userId).ToListAsync();
         }
     }
 }

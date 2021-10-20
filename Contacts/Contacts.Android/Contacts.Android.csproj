@@ -73,6 +73,8 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\camera_icon.png" />
+    <AndroidResource Include="Resources\drawable\gallery_icon.png" />
     <AndroidResource Include="Resources\drawable\save_icon.png" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
@@ -104,7 +106,7 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\avatar_icon.png">
+    <AndroidResource Include="Resources\drawable\profile_icon.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

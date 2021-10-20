@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Contacts.Services.Authentication;
+using Contacts.View;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -86,8 +87,9 @@ namespace Contacts.ViewModel
                     return;
                 }
 
-                Password = "";
-                await _navigationService.GoBackAsync();
+                var parameters = new NavigationParameters();
+                parameters.Add("Login", Login);
+                await _navigationService.GoBackAsync(parameters);
             }
         }
 
