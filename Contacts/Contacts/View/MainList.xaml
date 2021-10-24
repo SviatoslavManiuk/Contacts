@@ -14,7 +14,8 @@
         </ToolbarItem>
         <ToolbarItem IconImageSource="settings_icon.png"
                      Order="Primary"
-                     Priority="1"/>
+                     Priority="1"
+                     Command="{Binding SettingsIconTapCommand}"/>
     </ContentPage.ToolbarItems>
             
     <Grid RowDefinitions="*">

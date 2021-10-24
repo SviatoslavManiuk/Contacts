@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contacts.View.Settings"
+             Title="Settings">
+    <ContentPage.Content>
+        <TableView Intent="Settings" HasUnevenRows="True">
+            <TableView.Root>
+                <TableRoot>
+                    <TableSection Title="Sort сontacts by:">
+                        <ViewCell>
+                            <StackLayout>
+                                <RadioButton Content="Name"/>
+                                <RadioButton Content="Nick Name"/>
+                                <RadioButton Content="Date"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Theme settings">
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <CheckBox/>
+                                <Label Text="Black theme" VerticalOptions="Center"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Language">
+                        <ViewCell>
+                        <StackLayout>
+                            <Picker Title="Select a language">
+                                <Picker.Items>
+                                    <x:String>English</x:String>
+                                    <x:String>Українська</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView.Root>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

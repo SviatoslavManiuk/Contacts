@@ -32,6 +32,8 @@ namespace Contacts.ViewModel
 
         public ICommand LogOutIconTapCommand => new Command(OnLogOutIconTap);
         
+        public ICommand SettingsIconTapCommand => new Command(OnSettingsIconTap);
+        
         public ICommand AddButtonTapCommand => new Command(OnAddButtonTap);
         
         public ICommand EditProfileItemTapCommand => new Command(OnEditProfileItemTap);
@@ -159,6 +161,11 @@ namespace Contacts.ViewModel
         {
             _settingsManager.UserId = -1;
             await _navigationService.NavigateAsync("/NavigationPage/" + nameof(SignIn));
+        }
+        
+        private async void OnSettingsIconTap()
+        {
+            await _navigationService.NavigateAsync(nameof(Settings));
         }
 
         private async void OnAddButtonTap()
