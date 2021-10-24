@@ -19,6 +19,7 @@ namespace Contacts.ViewModel
         private INavigationService _navigationService;
         private int _id;
         private int _userId;
+        private DateTime _date;
         
 
         public AddEditProfileViewModel(ContactService contactService, INavigationService navigationService)
@@ -46,11 +47,11 @@ namespace Contacts.ViewModel
             set => SetProperty(ref _name, value);
         }
         
-        private string _profileProfileImageSource;
+        private string _profileImageSource;
         public string ProfileImageSource
         {
-            get => _profileProfileImageSource;
-            set => SetProperty(ref _profileProfileImageSource, value);
+            get => _profileImageSource;
+            set => SetProperty(ref _profileImageSource, value);
         }
         
         private string _description;
@@ -79,17 +80,23 @@ namespace Contacts.ViewModel
             {
                 ContactModel contact = (ContactModel) parameter;
                 
-                _id = contact.Id;
-                _userId = contact.UserId;
-                NickName = contact.NickName;
-                Name = contact.Name;
-                Description = contact.Description;
-                ProfileImageSource = contact.ImageSource;
-                
-                if (_id == -1)
+                if (contact.Id == -1)
                 {
                     ProfileImageSource = Constants.PROFILE_ICON_SOURCE;
+                    _date = DateTime.Now;
                 }
+                else
+                {
+                    _id = contact.Id;
+                    NickName = contact.NickName;
+                    Name = contact.Name;
+                    Description = contact.Description;
+                    ProfileImageSource = contact.ImageSource;
+                    _date = contact.Date;
+
+                }
+                
+                _userId = contact.UserId;
             }
             else
             {
@@ -121,25 +128,30 @@ namespace Contacts.ViewModel
         {
             ContactModel contact = new ContactModel()
             {
-                Id = _id,
                 UserId = _userId,
                 Name = this.Name,
                 NickName = this.NickName,
                 ImageSource = this.ProfileImageSource,
                 Description = this.Description,
-                Date = DateTime.Now
+                Date = _date
             };
+
+            var parameters = new NavigationParameters();
             
-            if (_id == -1)
+            if (_id == 0)
             {
+                parameters.Add("newContact", contact.ToContactViewModel());
                 await _contactService.InsertAsync(contact);
             }
             else
             {
-                await _contactService.UpdateAsync(contact);
+                contact.Id = _id;
+                parameters.Add("editedContact", contact.ToContactViewModel());
+                int res = await _contactService.UpdateAsync(contact);
             }
-
-            await _navigationService.GoBackAsync();
+            
+            
+            await _navigationService.GoBackAsync(parameters);
         }
 
         private void OnProfileImageTap()

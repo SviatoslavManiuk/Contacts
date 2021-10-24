@@ -16,42 +16,44 @@
                      Order="Primary"
                      Priority="1"/>
     </ContentPage.ToolbarItems>
-    
-        <StackLayout VerticalOptions="CenterAndExpand">
-        <Label Text="No profiles added"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="Large">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="IsVisible" Value="False"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Label">
-                            <DataTrigger.Value>
-                                <sys:Boolean>True</sys:Boolean>
-                            </DataTrigger.Value>
-                            <DataTrigger.Setters>
-                                <Setter Property="IsVisible" Value="True"/>
-                            </DataTrigger.Setters>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
             
-        <Grid RowDefinitions="*">
+    <Grid RowDefinitions="*">
+            <Label Text="No profiles added"
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="Large">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="IsVisible" Value="False"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Label">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <DataTrigger.Setters>
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        
+        
             <ScrollView Grid.Row="0">
                 <ListView HasUnevenRows="True"
+                          SelectedItem="{Binding Path=SelectedItem }"
                           ItemsSource="{Binding Contacts }"
                           SeparatorVisibility="None">
-             <ListView.ItemTemplate>
+                <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="Edit"
-                                Command="{Binding}"/>
+                                Command="{Binding EditCommand}"/>
                             <MenuItem Text="Delete"
-                                Command="{Binding}"/>
+                                Command="{Binding DeleteCommand}"/>
                         </ViewCell.ContextActions>
 
                         <ViewCell.View>
@@ -67,7 +69,7 @@
                                              VerticalOptions="Center">
                                     <Label Text="{Binding NickName}" FontSize="Medium" FontAttributes="Bold" />
                                     <Label Text="{Binding Name}" FontSize="Medium"/>
-                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/mm/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
+                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell.View>
@@ -88,5 +90,4 @@
                 WidthRequest="100" HeightRequest="100"
                 Command="{Binding AddButtonTapCommand}"/>
     </Grid>
-        </StackLayout>
 </ContentPage>
