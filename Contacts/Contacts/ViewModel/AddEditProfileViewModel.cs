@@ -1,15 +1,14 @@
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using Contacts.DAL;
 using Contacts.Model;
+using Contacts.Services.Camera;
+using Contacts.Services.DAL;
 using Contacts.Services.Extensions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Contacts.ViewModel
@@ -18,15 +17,17 @@ namespace Contacts.ViewModel
     {
         private ContactService _contactService;
         private INavigationService _navigationService;
+        private ICameraService _cameraService;
         private int _id;
         private int _userId;
         private DateTime _date;
         
 
-        public AddEditProfileViewModel(ContactService contactService, INavigationService navigationService)
+        public AddEditProfileViewModel(ContactService contactService, INavigationService navigationService, ICameraService cameraService)
         {
             _contactService = contactService;
             _navigationService = navigationService;
+            _cameraService = cameraService;
         }
 
         #region --- Public Properties ---
@@ -150,8 +151,7 @@ namespace Contacts.ViewModel
                 parameters.Add("editedContact", contact.ToContactViewModel());
                 int res = await _contactService.UpdateAsync(contact);
             }
-            
-            
+
             await _navigationService.GoBackAsync(parameters);
         }
 
@@ -166,44 +166,13 @@ namespace Contacts.ViewModel
 
         private async void GetPhotoFromGallery()
         {
-            try
-            {
-                var photo = await MediaPicker.PickPhotoAsync();
-                var newFilePath = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
-                
-                using (var stream = await photo.OpenReadAsync())
-                using (var newStream = File.OpenWrite(newFilePath))
-                    await stream.CopyToAsync(newStream);
-                ProfileImageSource = newFilePath;
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync(ex.Message, "Error", "Ok");
-            }
+            ProfileImageSource = await _cameraService.GetPhotoFromGallery();
         }
         
         private async void TakePhoto()
         {
-            try
-            {
-                var photo = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions 
-                    { 
-                        Title = $"xamarin.{DateTime.Now.ToString("dd.MM.yyyy_hh.mm.ss")}.png"
-                    });
-                var newFilePath = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
-                
-                using (var stream = await photo.OpenReadAsync())
-                using (var newStream = File.OpenWrite(newFilePath))
-                    await stream.CopyToAsync(newStream);
-                ProfileImageSource = newFilePath;
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync(ex.Message, "Error", "Ok");
-            }
+            ProfileImageSource = await _cameraService.TakePhoto();
         }
-        
-        
 
         #endregion
     }

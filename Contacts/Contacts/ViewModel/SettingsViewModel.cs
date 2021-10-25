@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Contacts.Services.Settings;
 using Prism.Mvvm;
@@ -46,6 +45,26 @@ namespace Contacts.ViewModel
             get => _indexSelectedSort;
             set => SetProperty(ref _indexSelectedSort, value);
         }
+        
+        #endregion
+
+        #region --- Public Methods ---
+        
+        public void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            var parameter = new NavigationParameters();
+            parameters.Add("SelectedSort", IndexSelectedSort);
+            _navigationService.GoBackAsync(parameter);
+        }
+
+        public void OnNavigatedTo(INavigationParameters parameters)
+        {
+        }
+        
+        #endregion
+        
+        #region --- Overrides
+        
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
@@ -53,7 +72,7 @@ namespace Contacts.ViewModel
             switch (args.PropertyName)
             {
                 case nameof(SelectedSort):
-                    switch ((string)SelectedSort)
+                    switch ((string) SelectedSort)
                     {
                         case "NickName":
                             _indexSelectedSort = 0;
@@ -65,25 +84,12 @@ namespace Contacts.ViewModel
                             _indexSelectedSort = 2;
                             break;
                     }
-
-                    break;
-                case nameof(IndexSelectedSort):
                     _settingsManager.SelectedSort = _indexSelectedSort;
                     break;
             }
         }
+        
         #endregion
-
-
-        public void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            var parameter = new NavigationParameters();
-            parameters.Add("SelectedSort", IndexSelectedSort);
-            _navigationService.GoBackAsync(parameter);
-        }
-
-        public void OnNavigatedTo(INavigationParameters parameters)
-        {
-        }
+        
     }
 }

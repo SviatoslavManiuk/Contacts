@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contacts.Model;
 using Contacts.Services.Repository;
 
-namespace Contacts.DAL
+namespace Contacts.Services.DAL
 {
     public class UserService
     {
@@ -23,10 +22,6 @@ namespace Contacts.DAL
         {
             return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Login = ?", login);
         }
-        public async Task<UserModel> FindByIDAsync(int id)
-        {
-            return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Id = ?", id);
-        }
-        
+
     }
 }

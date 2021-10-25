@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Contacts.Services.Authentication;
-using Contacts.View;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;

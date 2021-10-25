@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Contacts.DAL;
 using Contacts.Model;
+using Contacts.Services.DAL;
 using Contacts.Services.Settings;
 
 namespace Contacts.Services.Authentication

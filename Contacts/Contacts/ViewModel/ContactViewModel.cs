@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using Contacts.Model;
 using Prism.Mvvm;
 
 namespace Contacts.ViewModel

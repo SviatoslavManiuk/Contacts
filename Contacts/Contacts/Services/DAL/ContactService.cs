@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Contacts.Model;
 using Contacts.Services.Repository;
 
-namespace Contacts.DAL
+namespace Contacts.Services.DAL
 {
     public class ContactService
     {
