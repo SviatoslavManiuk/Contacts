@@ -3,32 +3,38 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contacts.View.AddEditProfile"
-             Title="Add Profile">
+             Title="AddEdit Profile">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="save_icon.png"
-                     Order="Primary"/>
+                     Order="Primary"
+                     Command="{Binding SaveIconTapCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <Grid RowDefinitions="0.3*, 0.3*, 0.3*" Padding="40, 15, 40, 40">
             <Image Grid.Row="0"
-                   Source="avatar_icon.png"
+                   Source="{Binding ProfileImageSource}"
                    Aspect="AspectFit"
                    VerticalOptions="Center"
                    HorizontalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ProfileImageTapCommand}"/> 
+                </Image.GestureRecognizers>
             </Image>
             
             <StackLayout Grid.Row="1"
                          VerticalOptions="Center"
                          HorizontalOptions="Fill"
                          Spacing="20">
-                <Entry Placeholder="NickName"/>
-                <Entry Placeholder="Name"/>
+                <Entry Placeholder="NickName" Text="{Binding NickName}"/>
+                <Entry Placeholder="Name" Text="{Binding Name}"/>
             </StackLayout>
             
             <Editor Grid.Row="2" 
                     Placeholder="Descriptions"
-                    BackgroundColor="Silver"/>
+                    BackgroundColor="Silver"
+                    MaxLength="120"
+                    Text="{Binding Description}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

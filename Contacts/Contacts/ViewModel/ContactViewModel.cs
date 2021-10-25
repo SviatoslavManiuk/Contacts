@@ -1,13 +1,39 @@
 using System;
-using Contacts.Model;
+using System.Windows.Input;
 using Prism.Mvvm;
 
 namespace Contacts.ViewModel
 {
     public class ContactViewModel: BindableBase
     {
+        public ContactViewModel(int id, string name, string nickName, string description, string profileImageSource,
+            DateTime date)
+        {
+            Id = id;
+            Name = name;
+            NickName = nickName;
+            Description = description;
+            ProfileImageSource = profileImageSource;
+            Date = date;
+        }
         #region --- Public Properties ---
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get => _deleteCommand;
+            set => SetProperty(ref _deleteCommand, value);
+        }
         
+        private ICommand _editCommand;
+        public ICommand EditCommand
+        {
+            get => _editCommand;
+            set => SetProperty(ref _editCommand, value);
+        }
+        
+        public int Id { get; }
+
         private string _nickName;
         public string NickName
         {
@@ -22,11 +48,11 @@ namespace Contacts.ViewModel
             set => SetProperty(ref _name, value);
         }
         
-        private string _imageSource;
-        public string ImageSource
+        private string _profileImageSource;
+        public string ProfileImageSource
         {
-            get => _imageSource;
-            set => SetProperty(ref _imageSource, value);
+            get => _profileImageSource;
+            set => SetProperty(ref _profileImageSource, value);
         }
         
         private DateTime _date;
@@ -43,23 +69,5 @@ namespace Contacts.ViewModel
             set => SetProperty(ref _description, value);
         }
         #endregion
-    }
-    
-    public static class ContactExtension
-    {
-        /*public static ContactModel ToContactModel(this ContactViewModel contact) => new()
-        {
-            Name = contact.Name,
-            NickName = contact.NickName,
-        };*/
-
-        public static ContactViewModel ToContactViewModel(this ContactModel contact) => new()
-        {
-            Name = contact.Name,
-            NickName = contact.NickName,
-            ImageSource = contact.ImageSource,
-            Date = contact.Date,
-            Description = contact.Description
-        };
     }
 }

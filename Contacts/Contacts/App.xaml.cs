@@ -1,6 +1,7 @@
-﻿using Contacts.DAL;
-using Contacts.Model;
+﻿using Contacts.Model;
 using Contacts.Services.Authentication;
+using Contacts.Services.Camera;
+using Contacts.Services.DAL;
 using Contacts.Services.Repository;
 using Contacts.Services.Settings;
 using Contacts.View;
@@ -26,13 +27,18 @@ namespace Contacts
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationWithLogin>());
+            containerRegistry.RegisterInstance<ICameraService>(Container.Resolve<CameraService>());
+            containerRegistry.RegisterInstance<UserService>(Container.Resolve<UserService>());
+            containerRegistry.RegisterInstance<ContactService>(Container.Resolve<ContactService>());
+            
 
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignIn, SignInViewModel>();
             containerRegistry.RegisterForNavigation<SignUp, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<MainList, MainListViewModel>();
-            containerRegistry.RegisterForNavigation<AddEditProfile>();
+            containerRegistry.RegisterForNavigation<AddEditProfile, AddEditProfileViewModel>();
+            containerRegistry.RegisterForNavigation<Settings, SettingsViewModel>();
         }
 
         protected override async void OnInitialized()

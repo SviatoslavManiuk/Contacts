@@ -9,62 +9,52 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="log_out_icon.png"
                      Order="Primary"
-                     Priority="0">
+                     Priority="0"
+                     Command="{Binding LogOutIconTapCommand}">
         </ToolbarItem>
         <ToolbarItem IconImageSource="settings_icon.png"
                      Order="Primary"
-                     Priority="1"/>
+                     Priority="1"
+                     Command="{Binding SettingsIconTapCommand}"/>
     </ContentPage.ToolbarItems>
-    
-        <StackLayout VerticalOptions="Center">
-        <Label Text="No profiles added"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="Large">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="IsVisible" Value="False"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Label">
-                            <DataTrigger.Value>
-                                <sys:Boolean>True</sys:Boolean>
-                            </DataTrigger.Value>
-                            <DataTrigger.Setters>
-                                <Setter Property="IsVisible" Value="True"/>
-                            </DataTrigger.Setters>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-        <Grid RowDefinitions="*">
-            <Grid.Style>
-            <Style TargetType="Grid">
-                <Setter Property="IsVisible" Value="True"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Grid">
-                        <DataTrigger.Value>
-                            <sys:Boolean>True</sys:Boolean>
-                        </DataTrigger.Value>
-                        <DataTrigger.Setters>
-                            <Setter Property="IsVisible" Value="False"/>
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-            </Grid.Style>
+            
+    <Grid RowDefinitions="*">
+            <Label Text="No profiles added"
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="Large">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="IsVisible" Value="False"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsContactsEmpty}" TargetType="Label">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <DataTrigger.Setters>
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        
+        
             <ScrollView Grid.Row="0">
-            <ListView HasUnevenRows="True"
-                      ItemsSource="{Binding }"
-                      SeparatorVisibility="None">
-             <ListView.ItemTemplate>
+                <ListView HasUnevenRows="True"
+                          SelectedItem="{Binding SelectedItem }"
+                          ItemsSource="{Binding Contacts }"
+                          SeparatorVisibility="None">
+                <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="Edit"
-                                Command="{Binding}"/>
+                                Command="{Binding EditCommand}"/>
                             <MenuItem Text="Delete"
-                                Command="{Binding}"/>
+                                Command="{Binding DeleteCommand}"/>
                         </ViewCell.ContextActions>
 
                         <ViewCell.View>
@@ -73,14 +63,16 @@
                                        Margin="10"
                                        HeightRequest="100"
                                        Aspect="AspectFit"
-                                       Source="{Binding }">
+                                       Source="{Binding ProfileImageSource}">
                                 </Image>
 
                                 <StackLayout Grid.Column="1"
                                              VerticalOptions="Center">
-                                    <Label Text="{Binding }" FontSize="Medium" FontAttributes="Bold" />
-                                    <Label Text="{Binding }" FontSize="Medium"/>
-                                    <Label Text="{Binding StringFormat='{}{0:dd/mm/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
+                                    <Label Text="{Binding NickName}" FontSize="Medium" FontAttributes="Bold" />
+                                    <Label Text="{Binding Name}" FontSize="Medium"/>
+                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy hh:mm tt}'}"
+                                           FontSize="Medium"
+                                           FontAttributes="Italic" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell.View>
@@ -98,7 +90,7 @@
                 BackgroundColor="#3da8ff"
                 Margin="0,0,30,40" 
                 HorizontalOptions="End" VerticalOptions="End"
-                WidthRequest="100" HeightRequest="100"/>
+                WidthRequest="100" HeightRequest="100"
+                Command="{Binding AddButtonTapCommand}"/>
     </Grid>
-        </StackLayout>
 </ContentPage>

@@ -86,8 +86,9 @@ namespace Contacts.ViewModel
                     return;
                 }
 
-                Password = "";
-                await _navigationService.GoBackAsync();
+                var parameters = new NavigationParameters();
+                parameters.Add("Login", Login);
+                await _navigationService.GoBackAsync(parameters);
             }
         }
 

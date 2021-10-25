@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contacts.Model;
 using Contacts.Services.Repository;
 
-namespace Contacts.DAL
+namespace Contacts.Services.DAL
 {
-    public class UserDAO
+    public class UserService
     {
         private IRepository _repository;
 
-        public UserDAO(IRepository repository)
+        public UserService(IRepository repository)
         {
             _repository = repository;
         }
@@ -23,10 +22,6 @@ namespace Contacts.DAL
         {
             return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Login = ?", login);
         }
-        public async Task<UserModel> FindByIDAsync(int id)
-        {
-            return await _repository.FindWithQueryAsync<UserModel>("SELECT * FROM User WHERE Id = ?", id);
-        }
-        
+
     }
 }
