@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Acr.UserDialogs;
 using Contacts.DAL;
 using Contacts.Model;
+using Contacts.Services.Extensions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;

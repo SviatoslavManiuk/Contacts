@@ -10,10 +10,14 @@
                 <TableRoot>
                     <TableSection Title="Sort сontacts by:">
                         <ViewCell>
-                            <StackLayout>
-                                <RadioButton Content="Name"/>
-                                <RadioButton Content="Nick Name"/>
-                                <RadioButton Content="Date"/>
+                            <StackLayout RadioButtonGroup.GroupName="sorts"
+                                         RadioButtonGroup.SelectedValue="{Binding SelectedSort}">
+                                <RadioButton Content="NickName"
+                                             Value="NickName"/>
+                                <RadioButton Content="Name"
+                                             Value="Name"/>
+                                <RadioButton Content="Date"
+                                             Value="Date"/>
                             </StackLayout>
                         </ViewCell>
                     </TableSection>

@@ -44,7 +44,7 @@
         
             <ScrollView Grid.Row="0">
                 <ListView HasUnevenRows="True"
-                          SelectedItem="{Binding Path=SelectedItem }"
+                          SelectedItem="{Binding SelectedItem }"
                           ItemsSource="{Binding Contacts }"
                           SeparatorVisibility="None">
                 <ListView.ItemTemplate>
@@ -70,7 +70,9 @@
                                              VerticalOptions="Center">
                                     <Label Text="{Binding NickName}" FontSize="Medium" FontAttributes="Bold" />
                                     <Label Text="{Binding Name}" FontSize="Medium"/>
-                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy hh:mm tt}'}" FontSize="Medium" FontAttributes="Italic" />
+                                    <Label Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy hh:mm tt}'}"
+                                           FontSize="Medium"
+                                           FontAttributes="Italic" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell.View>
